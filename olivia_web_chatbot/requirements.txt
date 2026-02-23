@@ -1,0 +1,15 @@
+# Core packages for API/web integration
+flask==2.3.3
+fastapi==0.109.0
+uvicorn==0.23.2
+pydantic==2.5.1
+httpx==0.25.1
+
+# Optional: environment variable management
+python-dotenv==1.0.0
+
+# Optional: persistent conversation state / caching
+redis==5.2.1
+
+# Ensure latest typing features (Python >=3.10 recommended)
+typing-extensions==4.9.0

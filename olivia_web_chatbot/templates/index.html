@@ -1,0 +1,118 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Benson Chat</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e5e5ea;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  .message {
+    max-width: 70%;
+    margin: 5px 0;
+    padding: 10px 15px;
+    border-radius: 20px;
+    word-wrap: break-word;
+  }
+  .user {
+    background-color: #0b93f6;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .olivia {
+    background-color: #f1f0f0;
+    color: black;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #0b93f6;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0668c1;
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-container" id="chat-container"></div>
+
+<div class="input-container">
+  <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+
+function appendMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.classList.add("message", sender);
+  msgDiv.textContent = text;
+  chatContainer.appendChild(msgDiv);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+async function sendMessage() {
+  const message = userInput.value.trim();
+  if (!message) return;
+  
+  appendMessage(message, "user");
+  userInput.value = "";
+  
+  try {
+    const res = await fetch("/api/message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+    const data = await res.json();
+    appendMessage(data.reply, "olivia");
+  } catch (err) {
+    appendMessage("Error contacting server.", "olivia");
+  }
+}
+
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>
