@@ -1,11 +1,11 @@
 
 # Olivia Benson Chatbot - Ollama Setup Guide
 
-A character-driven chatbot powered by Ollama, based on detailed character training from SVU's Olivia Benson.
+A character-driven chatbot powered by Ollama, based on detailed character training from SVU's Olivia Benson (Season 13 to present canon).
 
 ## Features
 
-- **Character-accurate responses** based on detailed personality and behavior guidelines
+- **Character-accurate responses** tuned for Olivia Benson's Season 13-present leadership era, voice, and ethics
 - **Conversational context** - maintains conversation history for coherent dialogue
 - **Two interfaces** - CLI and web-based
 - **Local execution** - runs entirely on Ollama, no external API calls
